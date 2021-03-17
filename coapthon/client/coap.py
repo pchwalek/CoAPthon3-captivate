@@ -63,6 +63,9 @@ class CoAP(object):
             self._socket = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
             self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
+
+        # the below line allows for border router to multicast 
+        self._socket.setsockopt(socket.SOL_SOCKET,25, str("wpan0" + '\0').encode('utf-8'))
         self._receiver_thread = None
 
     def purge_transactions(self, timeout_time=defines.EXCHANGE_LIFETIME):

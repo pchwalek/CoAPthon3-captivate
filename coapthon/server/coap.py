@@ -77,6 +77,7 @@ class CoAP(object):
 
             # Join group
             if addrinfo[0] == socket.AF_INET:  # IPv4
+                
                 self._socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
                 self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 self._socket.bind(('', self.server_address[1]))
@@ -93,6 +94,7 @@ class CoAP(object):
                 # (not strictly needed)
                 self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 self._socket.bind(('', self.server_address[1]))
+                
 
                 addrinfo_multicast = socket.getaddrinfo(defines.ALL_COAP_NODES_IPV6, 5683)[0]
                 group_bin = socket.inet_pton(socket.AF_INET6, addrinfo_multicast[4][0])
@@ -104,10 +106,9 @@ class CoAP(object):
                 self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             else:
                 self._socket = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
-                self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
+                self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)          
             self._socket.bind(self.server_address)
-
+           
     def purge(self):
         """
         Clean old transactions
